@@ -1,0 +1,170 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "StudentAPI",
+    "description" : "A Simple API with post, get, put, and delete methods",
+    "version" : "0.1"
+  },
+  "servers" : [
+    {
+    "url" : "http://localhost:8080"
+  }
+  ],
+  "paths" : {
+    "/student/update" : {
+      "put" : {
+        "description" : "Update of existing student",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "studentId" : {
+                    "type" : "integer"
+                  },
+                  "studentName" : {
+                    "type" : "string"
+                  },
+                  "studentAddress" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Response of student update endpoint",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/save" : {
+      "post" : {
+        "description" : "Save a new student",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                	"studentId" : {
+                    "type" : "integer"
+                  },
+                  "studentName" : {
+                    "type" : "string"
+                  },
+                  "studentAddress" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Response of student save endpoint",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+               }
+            }
+          }
+        }
+      }
+    },
+    "/student/all" : {
+      "get" : {
+        "description" : "Display all students",
+        "responses" : {
+          "200" : {
+            "description" : "Response of all student endpoint",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "studentId": {
+                      "type": "integer"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "studentAddress": {
+                      "type": "string"
+                    },
+                    
+                    "studentName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/get/{sid}" : {
+      "get" : {
+        "description" : "Display one student",
+        "responses" : {
+          "200" : {
+            "description" : "Response of one student",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "studentId": {
+                      "type": "integer"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "studentAddress": {
+                      "type": "string"
+                    },
+                    
+                    "studentName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/delete/{sid}" : {
+      "delete" : {
+        "description" : "Delete one student",
+        "responses" : {
+          "200" : {
+            "description" : "Response of delete student endpoint",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

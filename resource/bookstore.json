@@ -1,0 +1,240 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "info": {
+    "title": "Bookstore",
+    "version": "1.0",
+    "description": "This API enables the management of a bookstore. You can add, update, and remove the books in the store.",
+    "contact": {
+      "name": "Anon",
+      "email": "anon@anon.com"
+    }
+  },
+  "tags": [
+    {
+      "description": "Management of the books in the bookstore",
+      "name": "Book"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "getBooks",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReadBook"
+                  }
+                }
+              }
+            },
+            "description": "The list of book has been successfully retrieved."
+          }
+        }
+      }
+    },
+    "/book/{bookId}": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "getBookById",
+        "parameters": [
+          {
+            "name": "bookId",
+            "description": "The unique identifier of the book in the system.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadBook"
+                }
+              }
+            },
+            "description": "The book has been successfully retrieved."
+          }
+        }
+      }
+    },
+    "/book": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "createBook",
+        "parameters": [
+          {
+            "name": "title",
+            "description": "The title of the book.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "author",
+            "description": "The author of the book.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price",
+            "description": "The price of the book.",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadBook"
+                }
+              }
+            },
+            "description": "The book has been successfully created. A copy of the created book is returned."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "updateBook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            },
+            "description": "The book has been successfully updated. A copy of the updates book is returned."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "deleteBookById",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The unique identifier of the book in the system.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The book has been successfully deleted."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "properties": {
+          "id": {
+            "description": "The unique identifier of the book in the system.",
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "title": {
+            "description": "The title of the book.",
+            "type": "string",
+            "example": "Guide to..."
+          },
+          "author": {
+            "description": "The author of the book.",
+            "type": "string",
+            "example": "Anon"
+          },
+          "price": {
+            "description": "The price of the book.",
+            "type": "number",
+            "format": "float",
+            "example": 16.5
+          }
+        },
+        "type": "object"
+      },
+      "ReadBook": {
+        "properties": {
+          "id": {
+            "description": "The unique identifier of the book in the system.",
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "title": {
+            "description": "The title of the book.",
+            "type": "string",
+            "example": "Guide to..., Vol. 1"
+          },
+          "author": {
+            "description": "The author of the book.",
+            "type": "string",
+            "example": "Anon"
+          },
+          "price": {
+            "description": "The price of the book.",
+            "type": "number",
+            "format": "float",
+            "example": 16.5
+          },
+          "copiesSold": {
+            "description": "The number of copies sold of the book.",
+            "type": "integer",
+            "example": 10
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

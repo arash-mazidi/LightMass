@@ -1,0 +1,414 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OWASP vulnerability project",
+    "description": "OWASP vulnerability project",
+    "contact": {
+      "name": "Mattia Santi",
+      "url": "https://github.com/mattiasanti99/vulnerability_OWASP_project"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "user",		
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-crudOperationSemantics": "create",
+        "x-crudResourceType": "user",		
+        "requestBody": {
+          "$ref": "#/components/requestBodies/User"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful creation of a new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to be retrieved",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "x-crudOperationSemantics": "update",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to be updated",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/User"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful update of the user",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "x-crudOperationSemantics": "delete",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to be updated",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion of the user"
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "book",		
+        "responses": {
+          "200": {
+            "description": "Successful retrieval book list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-crudOperationSemantics": "create",
+        "x-crudResourceType": "book",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Book"
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "book",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to be retrieved",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "x-crudOperationSemantics": "update",
+        "x-crudResourceType": "book",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to be updated",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Book"
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "x-crudOperationSemantics": "delete",
+        "x-crudResourceType": "book",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to be deleted",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion of the user"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "User": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string"
+                },
+                "userName": {
+                  "type": "string"
+                },
+                "rentedBook": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "Book": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "genere": {
+                  "type": "string"
+                },
+                "publicationYear": {
+                  "type": "integer"
+                },
+                "avaiableCopies": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "price": {
+                  "type": "number",
+                  "format": "float",
+                  "minimum": 0
+                },
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 0
+                },
+                "isbn": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ROLE_USER", "ROLE_ADMIN"]
+          },
+          "balance": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0
+          },
+          "userName": {
+            "type": "string"
+          },
+          "rentedBook": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "x-crudResourceIdentifier": true
+          }
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "genere": {
+            "type": "string"
+          },
+          "publicationYear": {
+            "type": "integer"
+          },
+          "avaiableCopies": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isbn": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "x-crudResourceIdentifier": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,744 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Toggle API",
+    "description": "A simple example ASP.NET Core 2.1 Web API",
+    "contact": {
+      "name": "Paulo Donatilio",
+      "url": "https://www.linkedin.com/in/pdonatilio/",
+      "email": "pdonatilio@gmail.com"
+    },
+    "license": {
+      "name": "Use under Gnu GPL",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.pt-br.html"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/api/Service": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Get all services.",
+        "description": "Sample request: GET api/Service/",
+        "operationId": "ApiServiceGet",
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "service",
+        "responses": {
+          "200": {
+            "description": "Returns a list with all services",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Create a New Service",
+        "description": "Sample request:\r\n            \r\n    POST api/Service/\r\n    \r\n    {\r\n        \"version\": int,\r\n        \"Name\": \"string\"\r\n    }",
+        "operationId": "ApiServicePost",
+        "x-crudOperationSemantics": "create",
+        "x-crudResourceType": "service",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SavingServiceDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If version or name is null",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "serviceDto"
+      }
+    },
+    "/api/Service/{id}": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Get a specific Service by id.",
+        "description": "Sample request: GET api/Service/{id}",
+        "operationId": "ApiServiceByIdGet",
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the service informed by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Update the service informed by Id",
+        "description": "Sample request:\r\n            \r\n    PUT api/Service/\r\n    \r\n    {\r\n        \"version\": int,\r\n        \"name\": \"string\"\r\n    }",
+        "operationId": "ApiServiceByIdPut",
+        "x-crudOperationSemantics": "update",
+        "x-crudResourceType": "service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 1000
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SavingServiceDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If the version or name is null",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Delet a specific service by id.",
+        "description": "Sample request:\r\n            \r\n    DELETE api/Service/{id}",
+        "operationId": "ApiServiceByIdDelete",
+        "x-crudOperationSemantics": "delete",
+        "x-crudResourceType": "service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/Service/toggles/{id}": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Get all Toggles from a specific service by id.",
+        "description": "Sample request:\r\n            \r\n    GET api/Service/toggles/{id}",
+        "operationId": "ApiServiceTogglesByIdGet",
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "toggle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a list with all Toggles and the most important one of they",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToggleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/Toggle": {
+      "get": {
+        "tags": [
+          "Toggle"
+        ],
+        "summary": "Get all toggles.",
+        "description": "Sample request:\r\n            \r\n    GET api/Toggle/",
+        "operationId": "ApiToggleGet",
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "toggle",
+        "responses": {
+          "200": {
+            "description": "Returns a list with all toggles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SavingToggleDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Toggle"
+        ],
+        "summary": "Create a New Toggle",
+        "description": "Sample request:\r\n            \r\n    POST api/Toggle/\r\n    \r\n    To include All Services\r\n    {\r\n    \t\"Name\": \"string\",\r\n    \t\"State\": bolean,\r\n    \t\"Value\": int,\r\n    \t\"ServicesList\": [ \"All\" ]\r\n    }\r\n            \r\n    To include The Services 1,2,3 (By Id)\r\n    {\r\n    \t\"Name\": \"string\",\r\n    \t\"State\": bolean,\r\n    \t\"Value\": int,\r\n    \t\"ServicesList\": [ 1,2,3 ]\r\n    }",
+        "operationId": "ApiTogglePost",
+        "x-crudOperationSemantics": "create",
+        "x-crudResourceType": "toggle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SavingToggleDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If the fields name or ServicesList are null.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/Toggle/{id}": {
+      "get": {
+        "tags": [
+          "Toggle"
+        ],
+        "summary": "Get a specific Toggle by id.",
+        "description": "Sample request:\r\n            \r\n    GET api/Toggle/{id}",
+        "operationId": "ApiToggleByIdGet",
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "toggle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the toggle informed by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToggleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Toggle"
+        ],
+        "summary": "Update the toggle informed by Id",
+        "description": "Sample request:\r\n            \r\n    PUT api/Toggle/\r\n    \r\n    {\r\n        \"version\": int,\r\n        \"name\": \"string\"\r\n    }",
+        "operationId": "ApiToggleByIdPut",
+        "x-crudOperationSemantics": "update",
+        "x-crudResourceType": "toggle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 1000
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If the version or name is null",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "toggleDto"
+      }
+    },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users.",
+        "description": "Sample request: GET api/User/{id}",
+        "operationId": "ApiUserGet",
+        "x-crudOperationSemantics": "read-multi",
+        "x-crudResourceType": "user",
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a New user",
+        "description": "Sample request:\r\n            \r\n    POST api/User/\r\n    \r\n    {\r\n        \"firstName\": \"string\",\r\n        \"lastName\": \"string\",\r\n        \"username\": \"string\",\r\n        \"password\": \"string\",\r\n    }",
+        "operationId": "ApiUserPost",
+        "x-crudOperationSemantics": "create",
+        "x-crudResourceType": "user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If username exists or password is null",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "userDto"
+      }
+    },
+    "/api/User/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a specific user by id.",
+        "description": "Sample request:\r\n            \r\n    GET api/User/{id}",
+        "operationId": "ApiUserByIdGet",
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the user informed by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update the user informed by Id",
+        "description": "Sample request:\r\n            \r\n    PUT api/User/\r\n    \r\n    {\r\n        \"firstName\": \"string\",\r\n        \"lastName\": \"string\",\r\n        \"username\": \"string\",\r\n        \"password\": \"string\",\r\n    }\r\n            \r\nThe fiedls username and password are optionals",
+        "operationId": "ApiUserByIdPut",
+        "x-crudOperationSemantics": "update",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If the id is null or not found or the username is invalid",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delet a specific user by id.",
+        "description": "Sample request:\r\n            \r\n    DELETE api/User/{id}",
+        "operationId": "ApiUserByIdDelete",
+        "x-crudOperationSemantics": "delete",
+        "x-crudResourceType": "user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "x-crudResourceIdentifier": true,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {}
+          },
+          "400": {
+            "description": "If id is null or not found",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/User/auth": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get the access token to use the API",
+        "description": "Sample request:\r\n            \r\n    POST api/User/auth\r\n    \r\n    {\r\n        \"username\": \"string\",\r\n        \"password\": \"string\",\r\n    }",
+        "operationId": "ApiUserAuthPost",
+        "x-crudOperationSemantics": "read",
+        "x-crudResourceType": "user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the user data and security token",
+            "content": {}
+          },
+          "400": {
+            "description": "If id is null or not found or the username is invalid",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SavingServiceDto": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          }
+        }
+      },
+      "ServiceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "x-crudResourceIdentifier": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      },
+      "SavingToggleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "x-crudResourceIdentifier": true,
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "name": {
+            "type": "string"
+          },
+          "state": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "servicesList": {
+            "type": "array",
+            "required": true,
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "ToggleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "x-crudResourceIdentifier": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "state": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "x-crudResourceIdentifier": true
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
