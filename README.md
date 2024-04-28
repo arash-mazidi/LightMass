@@ -13,12 +13,8 @@ There is a config.json file where you can set the following parameters:
 You also need to copy the openAPI specification in the resource folder.
 
 ## How LightMass works?
-1- It reads the openAPI specification from resource folder.
+1- It reads the openAPI specification from the "resource" folder.
 
-2- It parses the input file.
+2- It parses each specification file.
 
-3- It creates a new parsed file in the resource folder.
-
-4- It finds similar operations based on the threshold.
-
-5- It shows the potential vulnerable endpoints, operations, and attributes.
+3- It reports potential vulnerable endpoints, operations, and attributes in each API.
