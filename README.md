@@ -6,9 +6,9 @@ It is a tool that mines the openAPI specifications of REST APIs and identifies c
 ## How to configure LightMass?
 There is a config.json file where you can set the following parameters: 
 
-# "openAPIname" --> Name of the openAPI that LighMass should mine. 
+"openAPIname" --> Name of the openAPI that LighMass should mine. 
 
-# "threshold" --> Threshold for identifying similar operations.
+"threshold" --> Threshold for identifying similar operations.
 
 You also need to copy the openAPI specification in the resource folder.
 
